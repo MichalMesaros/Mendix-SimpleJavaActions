@@ -11,33 +11,27 @@ package simplejavaactions.actions;
 
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.webui.CustomJavaAction;
-import com.mendix.core.Core;
-import com.mendix.systemwideinterfaces.core.IMendixObject;
-import java.io.InputStream;
-import org.apache.commons.codec.digest.DigestUtils;
 
-public class MD5CheckSum extends CustomJavaAction<java.lang.String>
+/**
+ * This simple Java action converts Integer to Hexadecimal String
+ * 
+ */
+public class IntToHex extends CustomJavaAction<java.lang.String>
 {
-	private IMendixObject __fileDocument;
-	private system.proxies.FileDocument fileDocument;
+	private java.lang.Long Integer;
 
-	public MD5CheckSum(IContext context, IMendixObject fileDocument)
+	public IntToHex(IContext context, java.lang.Long Integer)
 	{
 		super(context);
-		this.__fileDocument = fileDocument;
+		this.Integer = Integer;
 	}
 
 	@java.lang.Override
 	public java.lang.String executeAction() throws Exception
 	{
-		this.fileDocument = __fileDocument == null ? null : system.proxies.FileDocument.initialize(getContext(), __fileDocument);
-
 		// BEGIN USER CODE
-		String md5 = null;
-		try (InputStream is = Core.getFileDocumentContent(getContext(), fileDocument.getMendixObject())) {
-			md5 = DigestUtils.md5Hex(is);
-		}
-		return md5;
+		String Hex = Long.toHexString(Integer);
+        return Hex;
 		// END USER CODE
 	}
 
@@ -47,7 +41,7 @@ public class MD5CheckSum extends CustomJavaAction<java.lang.String>
 	@java.lang.Override
 	public java.lang.String toString()
 	{
-		return "MD5CheckSum";
+		return "IntToHex";
 	}
 
 	// BEGIN EXTRA CODE
